@@ -20,13 +20,13 @@ class BilgePump(Button):
         self.when_released = self.pumpOff
 
     def pumpOn(self):
-        print("pump", self.pin.number, " ON")
+        print(self.name, "- ON")
         if self.alert:
             print("**** Send a text message to Don since this is pump", self.pin.number)
         self.onTime = time()
 
     def pumpOff(self):
-        print("pump", self.pin.number, " OFF")
+        print(self.name, "- OFF")
         offTime = time()
         delta = offTime - self.onTime
         print(ctime(offTime), "- pump", self.pin.number, ", duration =", delta)

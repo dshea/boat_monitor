@@ -84,7 +84,31 @@ print("temp=%.1f, humidity=%.1f" % (temperature, humidity))
 #
 # OK, now write to the database
 #
-#conn = None
-#if not os.path.isfile(db_filename):
-#    conn = sqlite3.connect(db_filename)
+conn = None
+if not os.path.isfile(db_filename):
+    conn = sqlite3.connect(db_filename)
+    c = conn.cursor()
+    
+    # Create table pump
+    c.execute('''CREATE TABLE pump
+             (time INT, name text, duration INT)''')
 
+    # Create table battery
+    c.execute('''CREATE TABLE battery
+             (time INT, battery0 REAL, battery1 REAL, 
+             temperature REAL, humidity REAL)''')
+    
+    conn.commit()
+else:
+    conn = sqlite3.connect(db_filename)
+    
+# Insert a new row
+c.execute("INSERT INTO battery VALUES (?,?,?,?,?)", 
+          (int(time.time()), battery0, battery1, temperature, humidity))
+
+ # Save (commit) the changes
+conn.commit()
+conn.close()
+
+  
+    

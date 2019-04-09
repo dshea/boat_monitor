@@ -16,31 +16,38 @@ class BilgePump(Button):
         self.name = name
         self.alert = alert
         self.onTime = time()
+        self.offTime = time()
         self.when_pressed = self.pumpOn
         self.when_released = self.pumpOff
+
+    def writeDatabase(self):
+        delta = self.offTime - self.onTime
+        print(ctime(self.offTime), "- pump", self.pin.number, ", duration =", delta)
+
+        
 
     def pumpOn(self):
         print(self.name, "- ON")
         if self.alert:
-            print("**** Send a text message to Don since this is pump", self.pin.number)
+            print("**** Send a text message to Don since this is pump", self.name)
         self.onTime = time()
 
     def pumpOff(self):
         print(self.name, "- OFF")
-        offTime = time()
-        delta = offTime - self.onTime
-        print(ctime(offTime), "- pump", self.pin.number, ", duration =", delta)
+        self.offTime = time()
+        self.writeDatabase()
 
 
+def run():
 
+    bilgePump1 = BilgePump("main", bilgePump1Pin)
+    bilgePump2 = BilgePump("backup", bilgePump2Pin, True)
+    led1 = LED(led1Pin)
+    
+    led1.source = bilgePump1
+    
+    pause()
 
-bilgePump1 = BilgePump("Main (small)", bilgePump1Pin)
-bilgePump2 = BilgePump("Backup (big)", bilgePump2Pin, True)
-led1 = LED(led1Pin)
-
-led1.source = bilgePump1
-
-
-
-pause()
-
+if __name__ == '__main__':
+    run()
+    

@@ -100,6 +100,7 @@ if not os.path.isfile(db_filename):
     
     conn.commit()
 else:
+    c = conn.cursor()
     conn = sqlite3.connect(db_filename)
     
 # Insert a new row

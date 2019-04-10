@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 
 import time
-import os
 import board
 import busio
 import adafruit_ads1x15.ads1115 as ADS
 from adafruit_ads1x15.analog_in import AnalogIn
 import Adafruit_DHT
-import sqlite3
+
+import boat_database
 
 # battery calibration
 #
@@ -28,10 +28,6 @@ battery_num_readings = 5
 # what pin is the temp sensor attached to
 temperature_pin = 5
 temperature_num_readings = 5
-
-# database stuff
-db_filename = "boat.db"
-
 
 # Create the I2C bus
 i2c = busio.I2C(board.SCL, board.SDA)
@@ -84,32 +80,7 @@ print("temp=%.1f, humidity=%.1f" % (temperature, humidity))
 #
 # OK, now write to the database
 #
-conn = None
-if not os.path.isfile(db_filename):
-    conn = sqlite3.connect(db_filename)
-    c = conn.cursor()
-    
-    # Create table pump
-    c.execute('''CREATE TABLE pump
-             (time INT, name text, duration INT)''')
+boat_database.writeBattery(battery0, battery1, temperature, humidity)
 
-    # Create table battery
-    c.execute('''CREATE TABLE battery
-             (time INT, battery0 REAL, battery1 REAL, 
-             temperature REAL, humidity REAL)''')
-    
-    conn.commit()
-else:
-    c = conn.cursor()
-    conn = sqlite3.connect(db_filename)
-    
-# Insert a new row
-c.execute("INSERT INTO battery VALUES (?,?,?,?,?)", 
-          (int(time.time()), battery0, battery1, temperature, humidity))
 
- # Save (commit) the changes
-conn.commit()
-conn.close()
-
-  
     

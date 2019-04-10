@@ -3,6 +3,7 @@
 from gpiozero import Button, LED
 from signal import pause
 from time import time, ctime
+import boat_database
 
 bilgePump1Pin = 13
 bilgePump2Pin = 19
@@ -23,8 +24,7 @@ class BilgePump(Button):
     def writeDatabase(self):
         delta = self.offTime - self.onTime
         print(ctime(self.offTime), "- pump", self.pin.number, ", duration =", delta)
-
-        
+        boat_database.writeBilge(self.name, delta)
 
     def pumpOn(self):
         print(self.name, "- ON")

@@ -49,7 +49,7 @@ def writeBilge(name, duration) :
     conn, c = openDatabase()
     
     # insert record
-    c.execute("INSERT INTO bilge VALUES (?,?,?)", 
+    c.execute("INSERT INTO pump VALUES (?,?,?)", 
               (int(time.time()), name, duration))
 
      # Save (commit) the changes

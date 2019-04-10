@@ -15,14 +15,10 @@ ads = ADS.ADS1115(i2c)
 # Create single-ended input on channel 0
 chan0 = AnalogIn(ads, ADS.P0)
 chan1 = AnalogIn(ads, ADS.P1)
-chan2 = AnalogIn(ads, ADS.P2)
 
-# Create differential input between channel 0 and 1
-#chan = AnalogIn(ads, ADS.P0, ADS.P1)
-
-print("{:>5}\t{:>5}".format('raw', 'v'))
+print("{:>5}\t{:>5}\t{:>5}".format('raw0', 'v0', 'v1'))
 
 while True:
-    print("{:>5}\t{:>5.3f}\t{:>5.3f}\t{:>5.3f}".format(chan0.value, chan0.voltage, chan1.voltage, chan2.voltage))
-    time.sleep(0.01)
+    print("{:>5}\t{:>5.3f}\t{:>5.3f}".format(chan0.value, chan0.voltage, chan1.voltage))
+    time.sleep(0.1)
 

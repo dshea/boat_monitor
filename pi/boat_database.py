@@ -8,6 +8,7 @@ Created on Wed Apr 10 00:25:16 2019
 import os
 import time
 import sqlite3
+import json
 
 # database stuff
 db_filename = "boat.db"
@@ -55,5 +56,39 @@ def writeBilge(name, duration) :
      # Save (commit) the changes
     conn.commit()
     conn.close()
+
+def makeJSON(time) :
+    conn, c = openDatabase()
+    
+    query =  c.execute('SELECT * FROM pump  WHERE time > ? ORDER BY time', (time,)) 
+    print(json.dumps(query))
+        
+
+    conn.close()
+
+
+def dumpDatabase() :
+    conn, c = openDatabase()
+    
+    print("pump database")
+    print("time", "name", "duration")
+    print("----", "----", "--------")
+    for row in c.execute('SELECT * FROM pump ORDER BY time'):
+        print(row)
+
+    print("")
+    print("battery database")
+    print("time", "batery0", "battery1", "temperature", "humidity")
+    print("----", "-------", "--------", "-----------", "--------")
+    for row in c.execute('SELECT * FROM battery ORDER BY time'):
+        print(row)
+
+    conn.close()
+
+
+
+if __name__ == '__main__':
+#    dumpDatabase()
+    makeJSON(1554873300)
 
     

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<title>Time dataset</title>
+</head>
+
+<body>
+
+<p>A line chart is a way of plotting data points on a line. Often, it is used to show trend data, or the comparison of two data sets.</p>
+
+<p><div class="chartjs-wrapper"><canvas id="chartjs-0" class="chartjs" width="undefined" height="undefined"></canvas>
+
+<script>
+new Chart(document.getElementById("chartjs-0"),{
+    "type":"line",
+    "data":{
+        //"labels":["January","February","March","April","May","June","July"],
+        "datasets":[{
+            "label":"My First Dataset",
+            "data":[{ x: new Date("2014-01-03T11:00:00"), y: 5 },
+                    { x: new Date("2014-01-03T11:10:00"), y: 4 },
+                    { x: new Date("2014-01-03T11:20:00"), y: 3 },
+                    { x: new Date("2014-01-03T11:30:00"), y: 2.5 },
+                    { x: new Date("2014-01-03T11:40:00"), y: 2.4 },
+                    { x: new Date("2014-01-03T11:45:00"), y: 2.6 },
+                    { x: new Date("2014-01-03T11:50:00"), y: 4 },
+                    { x: new Date("2014-01-03T11:55:00"), y: 6 }
+            ],
+            //"fill":false,
+            //"borderColor":"rgb(75, 192, 192)",
+            //"lineTension":0.1
+        }]
+    },
+    "options":{
+        scales: {
+            xAxes: [{
+                type: 'time',
+                //distrubution: "linear",
+                //time: { unit: "day"},
+                //type: "linear",
+                position: "bottom"
+            }]
+        }
+    }
+});
+
+</script>
+
+</div></p>
+
+
+
+
+<hr>
+<address></address>
+<!-- hhmts start -->Last modified: Tue Mar 12 23:18:36 EDT 2019 <!-- hhmts end -->
+</body> </html>

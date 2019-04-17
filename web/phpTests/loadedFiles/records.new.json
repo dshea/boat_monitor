@@ -1,0 +1,32 @@
+{
+    "bilge": [
+	{ "time": "1547118000", "pump": 0, "duration": 20 },
+	{ "time": "1547118300", "pump": 0, "duration": 22 },
+	{ "time": "1547118660", "pump": 0, "duration": 23 },
+	{ "time": "1547118660", "pump": 0, "duration": 21 },
+	{ "time": "1547119500", "pump": 0, "duration": 19 },
+	{ "time": "2019-01-10T06:31:00", "pump": 0, "duration": 16 },
+	{ "time": "2019-01-10T06:39:00", "pump": 0, "duration": 18 },
+	{ "time": "2019-01-10T06:41:00", "pump": 0, "duration": 20 },
+	{ "time": "2019-01-10T06:51:00", "pump": 0, "duration": 22 },
+	{ "time": "2019-01-10T07:02:00", "pump": 0, "duration": 23 },
+	{ "time": "2019-01-10T07:13:00", "pump": 0, "duration": 21 },
+	{ "time": "2019-01-10T07:25:00", "pump": 0, "duration": 19 },
+	{ "time": "2019-01-10T07:38:00", "pump": 0, "duration": 16 }
+    ],
+
+    "voltage": [
+	{ "time": "2019-01-10T06:01:00", "bank0": 12.9, "bank1": 12.4, "temp": 87, "humidity": 81 },
+	{ "time": "2019-01-10T06:11:00", "bank0": 12.8, "bank1": 12.4, "temp": 85, "humidity": 82 },
+	{ "time": "2019-01-10T06:21:00", "bank0": 12.7, "bank1": 12.4, "temp": 87, "humidity": 81 },
+	{ "time": "2019-01-10T06:31:00", "bank0": 12.7, "bank1": 12.4, "temp": 85, "humidity": 82 },
+	{ "time": "2019-01-10T06:41:00", "bank0": 12.6, "bank1": 12.4, "temp": 87, "humidity": 81 },
+	{ "time": "2019-01-10T06:51:00", "bank0": 12.7, "bank1": 12.4, "temp": 85, "humidity": 82 },
+	{ "time": "2019-01-10T07:01:00", "bank0": 12.9, "bank1": 12.4, "temp": 87, "humidity": 81 },
+	{ "time": "2019-01-10T07:11:00", "bank0": 12.8, "bank1": 12.4, "temp": 85, "humidity": 82 },
+	{ "time": "2019-01-10T07:21:00", "bank0": 12.7, "bank1": 12.4, "temp": 87, "humidity": 81 },
+	{ "time": "2019-01-10T07:31:00", "bank0": 12.7, "bank1": 12.4, "temp": 85, "humidity": 82 },
+	{ "time": "2019-01-10T07:41:00", "bank0": 12.6, "bank1": 12.4, "temp": 87, "humidity": 81 }
+    ]
+
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plotly Line Graph</title>
+    <!-- Include Plotly.js from a CDN -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <!-- Div element where the graph will be plotted -->
+    <div id="myPlot" style="width:100%;max-width:600px;"></div>
+
+    <script>
+        // JavaScript code to create the plot
+        
+        // 1. Define the data trace
+        var trace1 = {
+            x: [1, 2, 3, 4, 5], // X-axis values
+            y: [10, 15, 13, 17, 12], // Y-axis values
+            mode: 'lines+markers', // Display as lines connecting markers
+            type: 'scatter', // The scatter type is used for line graphs in Plotly.js
+            name: 'Sample Line'
+        };
+
+        var trace2 = {
+            x: [1, 2, 3, 4, 5],
+            y: [16, 5, 11, 9, 15],
+            mode: 'lines',
+            type: 'scatter',
+            name: 'Another Line'
+        };
+
+        var data = [trace1, trace2]; // Array of traces
+
+        // 2. Define the layout of the graph (optional)
+        var layout = {
+            title: 'Simple Line Graph using Plotly.js',
+            xaxis: {
+                title: 'X Axis Label'
+            },
+            yaxis: {
+                title: 'Y Axis Label'
+            }
+        };
+
+        // 3. Plot the graph in the 'myPlot' div
+        Plotly.newPlot('myPlot', data, layout);
+
+    </script>
+</body>
+</html>
+    

@@ -1,0 +1,192 @@
+LiTime battery information
+
+device - name = "L-12100BNN100-A03977" - this is my battery
+service - 0xFFE0 - 
+rxCharacteristic - 0xFFE2 - server data request reciever
+txCharacteristic - 0xFFE1 - servet data transmitter
+status request meassage, 8 bytes
+    0x0000
+    0x0401
+    0x1355
+    0xAA17
+status data reply, little endian numbers
+    voltage = payload.getUint32(12, true) / 1000
+
+    ---individual call voltages
+    cellOffset = 16;
+    for(let x=0; x < 16; x++) {
+        cellVolt = payload.getUint16(cellOffset+x*2, true);
+        if(cellVolt !== 0) {
+            cellVolts.push(cellVolt / 1000);
+        }
+    }
+
+    current = payload.getInt32(48, true) / 1000
+    cellTempC = payload.getInt16(52, true);
+    bmsTempC = payload.getInt16(54, true);
+    remianingAh = payload.getUint16(62, true) / 100
+    capacityAh = payload.getUint16(64, true) / 100
+
+    ---other calculations
+    cellTempF = cellTempC * (9/5) + 32;
+    bmsTempF = bmsTempC * (9/5) + 32;
+    chargePercent = (remianingAh / capacityAh) * 100
+
+
+voltageIndex = 12
+cellVoltageIndex = 16
+currentIndex = 48
+cellTempIndex = 52
+bmsTempIndex = 54
+remianingAhIndex = 62
+capaciteAhIndex = 64
+
+
+
+00 00
+02 02
+04 04
+06 06
+08 08
+10 0a
+12 0c  voltage32
+14 0e    voltage32
+16 10  cellVolt 0
+18 12  cellVolt 1
+20 14  cellVolt 2
+22 16  cellVolt 3
+24 18  cellVolt 4
+26 1a  cellVolt 5
+28 1c  cellVolt 6
+30 1e  cellVolt 7
+32 20  cellVolt 8
+34 22  cellVolt 9
+36 24  cellVolt 10
+38 26  cellVolt 11
+40 28  cellVolt 12
+42 2a  cellVolt 13
+44 2c  cellVolt 14
+46 2e  cellVolt 15
+48 30  current32
+50 32    current32
+52 34  cellTemp
+54 36  bmsTemp
+56 38
+58 3a
+60 3c
+62 3e  remaingAh
+64 40  capacityAh
+66 42
+68 44
+70 46
+72 48
+74 4a
+76 4c
+78 4e
+
+
+\x00 \x00
+e    \x01
+\x93 U
+\xaa \x00
+\xeb 2
+\x00 \x00
+\x8f 3
+\x00 \x00
+\xe5 \x0c
+\xe4 \x0c
+\xe4 \x0c
+\xe2 \x0c
+\x00 \x00
+\x00 \x00
+\x00 \x00
+\x00 \x00
+\x00 \x00
+\x00 \x00
+\x00 \x00
+\x00 \x00
+\x00 \x00
+\x00 \x00
+\x00 \x00
+\x00 \x00
+\x00 \x00
+\x00 \x00
+\x13 \x00
+\x13 \x00
+\x00 \x00
+\x00 \x00
+\x00 \x00
+l    \x1d
+\xe6 \'
+\x00 \x00
+\x00 \x00
+\x00 \x00
+\x00 \x00
+\x00 \x00
+\x00 \x00
+\x00 \x00
+\x00 \x00
+\x00 \x00
+\x00 \x00
+\x00 \x00
+\x00 \x00
+I    \x00
+e    \x00
+\x00 \x00
+\x06 \x00
+\x00 \x00
+r    \x02
+\x00 \x00
+z
+
+
+                if(navigator.userAgent.toLowerCase().includes('bluefy')) {
+                    device = await navigator.bluetooth.requestDevice({
+                        filters: [{services: [0xFFE0]}]
+                    });
+                }
+
+                let service = await server.getPrimaryService(0xFFE0);
+                let rxCharacteristic = await service.getCharacteristic(0xFFE2);
+
+                let txCharacteristic = await service.getCharacteristic(0xFFE1);
+                await txCharacteristic.startNotifications();
+
+Message to trigger data send
+                let getStats = async function () {
+                    const buffer = new ArrayBuffer(8);
+                    const view = new DataView(buffer);
+                    view.setUint16(0, 0x0000);
+                    view.setUint16(2, 0x0401);
+                    view.setUint16(4, 0x1355);
+                    view.setUint16(6, 0xAA17);
+
+                    requestType = 'getStats';
+                    if(rxCharacteristic.writeValueWithResponse) {
+                        await rxCharacteristic.writeValueWithResponse(buffer);
+                    } else {
+                        await rxCharacteristic.writeValue(buffer);
+                    }
+                };
+
+
+
+                        let voltage = payload.getUint32(12, true) / 1000;
+                        let current = payload.getInt32(48, true) / 1000;
+                        let remianingAh = payload.getUint16(62, true) / 100;
+                        let capacityAh = payload.getUint16(64, true) / 100;
+
+                        let cellVolts = [];
+                        let offset = 16;
+                        for(let x=0; x < 16; x++) {
+                            let cellVolt = payload.getUint16(offset+x*2, true);
+                            if(cellVolt !== 0) {
+                                cellVolts.push(cellVolt / 1000);
+                            }
+                        }
+
+                        let cellTempC = payload.getInt16(52, true);
+                        let cellTempF = cellTempC * (9/5) + 32;
+                        let bmsTempC = payload.getInt16(54, true);
+                        let bmsTempF = bmsTempC * (9/5) + 32;
+  cellVolt 
